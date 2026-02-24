@@ -319,7 +319,7 @@ async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def main():
     """Bot'u başlat"""
     
-    if TELEGRAM_BOT_TOKEN == "8698755439:AAG0rQrLM_NsZZ-RJvYs2ArXvt67j0mv1IQ":
+    if TELEGRAM_BOT_TOKEN == 8698755439:AAG0rQrLM_NsZZ-RJvYs2ArXvt67j0mv1IQ:
         print("⚠️  UYARI: Bot token'ı ayarlanmamış!")
         print("📝 Lütfen şu adımları takip edin:")
         print("   1. config_example.py dosyasını config.py olarak kopyalayın")
