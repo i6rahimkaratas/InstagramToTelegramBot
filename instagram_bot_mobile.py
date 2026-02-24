@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Instagram İçerik İndirici Telegram Botu - Mobil Versiyon
-İçerikleri kullanıcıya doğrudan Telegram üzerinden gönderir
-"""
+
 
 import os
 import re
@@ -15,7 +12,6 @@ from telegram.ext import Application, CommandHandler, MessageHandler, filters, C
 import instaloader
 from datetime import datetime
 
-# Loglama ayarları
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     level=logging.INFO,
@@ -26,23 +22,19 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Yapılandırma - Environment Variables veya config.py'den al
 try:
     from config import TELEGRAM_BOT_TOKEN, INSTAGRAM_USERNAME, INSTAGRAM_PASSWORD
 except ImportError:
     logger.warning("config.py bulunamadı, environment variables kullanılıyor")
     import os
-    TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', 'YOUR_BOT_TOKEN_HERE')
+    TELEGRAM_BOT_TOKEN = os.getenv('i6rahimBot', '8698755439:AAG0rQrLM_NsZZ-RJvYs2ArXvt67j0mv1IQ')
     INSTAGRAM_USERNAME = os.getenv('INSTAGRAM_USERNAME', '')
     INSTAGRAM_PASSWORD = os.getenv('INSTAGRAM_PASSWORD', '')
 
-# İstatistikler
 user_stats = {}
 
-# Geçici klasör için
 TEMP_FOLDER = tempfile.mkdtemp(prefix="instagram_bot_")
 
-# Instaloader instance
 L = instaloader.Instaloader(
     download_videos=True,
     download_video_thumbnails=False,
@@ -54,7 +46,6 @@ L = instaloader.Instaloader(
     filename_pattern='{shortcode}'
 )
 
-# Instagram login (opsiyonel)
 if INSTAGRAM_USERNAME and INSTAGRAM_PASSWORD:
     try:
         L.login(INSTAGRAM_USERNAME, INSTAGRAM_PASSWORD)
@@ -64,7 +55,6 @@ if INSTAGRAM_USERNAME and INSTAGRAM_PASSWORD:
 
 
 def extract_shortcode(url: str) -> str:
-    """Instagram URL'inden shortcode çıkar"""
     patterns = [
         r'instagram\.com/p/([A-Za-z0-9_-]+)',
         r'instagram\.com/reel/([A-Za-z0-9_-]+)',
@@ -170,7 +160,6 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def stats_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Kullanıcı istatistiklerini göster"""
     user_id = update.effective_user.id
     init_user_stats(user_id)
     
@@ -324,14 +313,13 @@ async def download_instagram_content(update: Update, context: ContextTypes.DEFAU
 
 
 async def error_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Hata yöneticisi"""
     logger.error(f"Update {update} caused error {context.error}", exc_info=context.error)
 
 
 def main():
     """Bot'u başlat"""
     
-    if TELEGRAM_BOT_TOKEN == "YOUR_BOT_TOKEN_HERE":
+    if TELEGRAM_BOT_TOKEN == "8698755439:AAG0rQrLM_NsZZ-RJvYs2ArXvt67j0mv1IQ":
         print("⚠️  UYARI: Bot token'ı ayarlanmamış!")
         print("📝 Lütfen şu adımları takip edin:")
         print("   1. config_example.py dosyasını config.py olarak kopyalayın")
